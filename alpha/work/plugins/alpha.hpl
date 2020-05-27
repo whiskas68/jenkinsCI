@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Group-Id: plugin-starter
+Short-Name: alpha
+Long-Name: TODO Plugin
+Url: https://wiki.jenkins-ci.org/display/JENKINS/TODO+Plugin
+Plugin-Version: 1.0-SNAPSHOT (private-05/27/2020 23:42-whiskas68)
+Hudson-Version: 1.580.1
+Jenkins-Version: 1.580.1
+Plugin-Developers: 
+Libraries: /home/whiskas68/IdeaProjects/jenkins/jenkinsCI/alpha/target
+ /classes
+Resource-Path: /home/whiskas68/IdeaProjects/jenkins/jenkinsCI/alpha/sr
+ c/main/webapp
+
