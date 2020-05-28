@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Group-Id: org.jenkins-ci.plugins
+Short-Name: graven
+Long-Name: TODO Plugin
+Url: https://wiki.jenkins-ci.org/display/JENKINS/TODO+Plugin
+Plugin-Version: 1.0-SNAPSHOT (private-b5c27594-whiskas68)
+Hudson-Version: 1.580.1
+Jenkins-Version: 1.580.1
+Plugin-Developers: 
+Libraries: /home/whiskas68/IdeaProjects/jenkins/jenkinsCI/graven/targe
+ t/classes
+Resource-Path: /home/whiskas68/IdeaProjects/jenkins/jenkinsCI/graven/s
+ rc/main/webapp
+
