@@ -1,0 +1,8 @@
+/target
+/work
+.settings/
+.project
+.classpath
+.idea
+*.iml
+go.sh
