@@ -15,23 +15,23 @@ import org.kohsuke.stapler.StaplerRequest;
 import java.io.IOException;
 
 public class GravenBuilder extends Builder {
-    private final String task;
+    private final String message;
 
     private boolean enableCloud;
 
     @Override
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
-        listener.getLogger().println("this is Graven build logger");
+        listener.getLogger().println("this is Graven build logger" + message);
         return true;
     }
 
     @DataBoundConstructor
-    public GravenBuilder(String task) {
-        this.task = task;
+    public GravenBuilder(String message) {
+        this.message = message;
     }
 
-    public String getTask() {
-        return task;
+    public String getMessage() {
+        return message;
     }
 
     @Extension
