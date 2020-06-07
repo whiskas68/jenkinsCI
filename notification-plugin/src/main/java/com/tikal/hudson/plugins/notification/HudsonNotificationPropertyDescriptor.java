@@ -27,14 +27,12 @@ import hudson.security.ACL;
 import hudson.security.Permission;
 import hudson.util.FormValidation;
 import hudson.util.ListBoxModel;
-import jenkins.mvn.SettingsProvider;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.plugins.plaincredentials.StringCredentials;
 import org.kohsuke.stapler.AncestorInPath;
-import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
@@ -51,10 +49,6 @@ public final class HudsonNotificationPropertyDescriptor extends JobPropertyDescr
 
     private List<Endpoint> endpoints = new ArrayList<Endpoint>();
 
-    public List<Endpoint> getEndpoints() {
-        return endpoints;
-    }
-
     public boolean isEnabled() {
         return !endpoints.isEmpty();
     }
@@ -62,6 +56,8 @@ public final class HudsonNotificationPropertyDescriptor extends JobPropertyDescr
     public List<Endpoint> getTargets() {
         return endpoints;
     }
+
+    public List<Endpoint> getEndpoints(){ return this.endpoints;}
 
     public void setEndpoints(List<Endpoint> endpoints) {
         this.endpoints = new ArrayList<Endpoint>( endpoints );
@@ -87,46 +83,24 @@ public final class HudsonNotificationPropertyDescriptor extends JobPropertyDescr
 
     //@Override
     //public HudsonNotificationProperty newInstance(StaplerRequest req, JSONObject formData) throws FormException {
-    //    List<Endpoint> endpoints = new ArrayList<Endpoint>();
-    //    if (formData != null && !formData.isNullObject()) {
-    //        JSON endpointsData = (JSON) formData.get("endpoints");
-    //        if (endpointsData != null && !endpointsData.isEmpty()) {
-    //            if (endpointsData.isArray()) {
-    //                JSONArray endpointsArrayData = (JSONArray) endpointsData;
-    //                for (int i = 0; i < endpointsArrayData.size(); i++) {
-    //                    JSONObject endpointsObject = endpointsArrayData.getJSONObject(i);
-    //                    endpoints.add(convertJson((JSONObject) endpointsObject));
-    //                }
-    //            } else {
-    //                endpoints.add(convertJson((JSONObject) endpointsData));
-    //            }
-    //        }
-    //    }
-    //    HudsonNotificationProperty notificationProperty = new HudsonNotificationProperty(endpoints);
-    //    return notificationProperty;
-    //}
-
-
-    @Override
-    public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
         //List<Endpoint> endpoints = new ArrayList<Endpoint>();
-        if (formData != null && !formData.isNullObject()) {
-            JSON endpointsData = (JSON) formData.get("endpoints");
-            if (endpointsData != null && !endpointsData.isEmpty()) {
-                if (endpointsData.isArray()) {
-                    JSONArray endpointsArrayData = (JSONArray) endpointsData;
-                    for (int i = 0; i < endpointsArrayData.size(); i++) {
-                        JSONObject endpointsObject = endpointsArrayData.getJSONObject(i);
-                        endpoints.add(convertJson((JSONObject) endpointsObject));
-                    }
-                } else {
-                    endpoints.add(convertJson((JSONObject) endpointsData));
-                }
-            }
-        }
-        save();
-        return true;
-    }
+        //if (formData != null && !formData.isNullObject()) {
+        //    JSON endpointsData = (JSON) formData.get("endpoints");
+        //    if (endpointsData != null && !endpointsData.isEmpty()) {
+        //        if (endpointsData.isArray()) {
+        //            JSONArray endpointsArrayData = (JSONArray) endpointsData;
+        //            for (int i = 0; i < endpointsArrayData.size(); i++) {
+        //                JSONObject endpointsObject = endpointsArrayData.getJSONObject(i);
+        //                endpoints.add(convertJson((JSONObject) endpointsObject));
+        //            }
+        //        } else {
+        //            endpoints.add(convertJson((JSONObject) endpointsData));
+        //        }
+        //    }
+        //}
+        //HudsonNotificationProperty notificationProperty = new HudsonNotificationProperty(getEndpoints());
+        //return notificationProperty;
+    //}
     
     private Endpoint convertJson(JSONObject endpointObjectData) throws FormException {
         // Transform the data to get the public/secret URL data
@@ -214,10 +188,25 @@ public final class HudsonNotificationPropertyDescriptor extends JobPropertyDescr
         return model;
     }
 
-    //@Override
-    //public boolean configure(StaplerRequest req, JSONObject formData) {
-    //    save();
-    //    return true;
-    //}
+    @Override
+    public boolean configure(StaplerRequest req, JSONObject formData) throws FormException{
+        this.endpoints = new ArrayList<Endpoint>();
+        if (formData != null && !formData.isNullObject()) {
+            JSON endpointsData = (JSON) formData.get("endpoints");
+            if (endpointsData != null && !endpointsData.isEmpty()) {
+                if (endpointsData.isArray()) {
+                    JSONArray endpointsArrayData = (JSONArray) endpointsData;
+                    for (int i = 0; i < endpointsArrayData.size(); i++) {
+                        JSONObject endpointsObject = endpointsArrayData.getJSONObject(i);
+                        this.endpoints.add(convertJson((JSONObject) endpointsObject));
+                    }
+                } else {
+                    this.endpoints.add(convertJson((JSONObject) endpointsData));
+                }
+            }
+        }
+        save();
+        return true;
+    }
 
 }

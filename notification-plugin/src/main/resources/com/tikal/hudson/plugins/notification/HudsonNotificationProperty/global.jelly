@@ -5,7 +5,7 @@
     <f:section title="Job Notifications">
         <f:entry title="Notification Endpoints" field="endpoints">
             <f:repeatable name="endpoints" var="endpoint"
-                items="${instance.endpoints}" add="${%Add Endpoint}">
+                items="${descriptor.getEndpoints()}" add="${%Add Endpoint}">
                 <table class="center-align">
                     <f:entry field="endpoint">
                         <table>

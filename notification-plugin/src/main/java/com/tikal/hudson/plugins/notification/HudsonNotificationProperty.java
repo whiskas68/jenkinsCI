@@ -16,7 +16,9 @@ package com.tikal.hudson.plugins.notification;
 import hudson.Extension;
 import hudson.model.Job;
 import hudson.model.JobProperty;
+import hudson.model.JobPropertyDescriptor;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class HudsonNotificationProperty extends
     }
 
     public List<Endpoint> getEndpoints() {
-        return endpoints;
+        return getDescriptor().getEndpoints();
     }
 
     @SuppressWarnings( "CastToConcreteClass" )
@@ -42,5 +44,6 @@ public class HudsonNotificationProperty extends
     }
 
     @Extension
-    public static final HudsonNotificationPropertyDescriptor DESCRIPTOR = new HudsonNotificationPropertyDescriptor();
+    public final static HudsonNotificationPropertyDescriptor DESCRIPTOR = new HudsonNotificationPropertyDescriptor();
+
 }

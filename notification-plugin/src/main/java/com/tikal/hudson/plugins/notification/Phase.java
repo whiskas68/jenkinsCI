@@ -19,14 +19,7 @@ import com.tikal.hudson.plugins.notification.model.ScmState;
 import com.tikal.hudson.plugins.notification.model.TestState;
 
 import hudson.EnvVars;
-import hudson.model.AbstractBuild;
-import hudson.model.Job;
-import hudson.model.ParameterValue;
-import hudson.model.ParametersAction;
-import hudson.model.Result;
-import hudson.model.Run;
-import hudson.model.TaskListener;
-import hudson.model.User;
+import hudson.model.*;
 import hudson.scm.ChangeLogSet;
 import hudson.tasks.test.AbstractTestResultAction;
 import hudson.tasks.test.TestResult;
@@ -40,6 +33,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import static com.tikal.hudson.plugins.notification.HudsonNotificationProperty.DESCRIPTOR;
 
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -61,7 +56,9 @@ public enum Phase {
     @SuppressWarnings( "CastToConcreteClass" )
     public void handle(Run run, TaskListener listener, long timestamp) {
 
-        HudsonNotificationProperty property = (HudsonNotificationProperty) run.getParent().getProperty(HudsonNotificationProperty.class);
+        //HudsonNotificationProperty property = (HudsonNotificationProperty) run.getParent().getProperty(HudsonNotificationProperty.class);
+        HudsonNotificationPropertyDescriptor property = DESCRIPTOR;
+
         if ( property == null ){ return; }
         
         Result previousCompletedRunResults = findLastBuildThatFinished(run);
